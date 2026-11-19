@@ -7,6 +7,13 @@
 // Outside the grader's container, MAKEFUN_OUTPUT_DIR stands in for /output:
 //   mkdir -p out && MAKEFUN_OUTPUT_DIR=out node main.ts
 
+// Improvement pass (19 Nov 2026): the cover renderer (app/src/cover.js) and
+// the screenshot scenes (app/src/shots.js) were reworked for stronger poster
+// art — bolder titles, a photo-backed nine-grid centre, a fixed tilt title
+// collision, a stronger gold grade, and varied per-panel crops. This file's
+// behaviour is unchanged: it still copies app/ and screenshots/ into
+// /output and writes dossier.json with the kit's buildDossier.
+
 import { cpSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
