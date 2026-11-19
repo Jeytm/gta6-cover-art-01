@@ -1,12 +1,52 @@
-html, body { margin: 0; height: 100%; background: #f2f0f4; color: #1d1b22; font: 15px/1.4 system-ui, sans-serif; }
-.app { display: flex; gap: 32px; align-items: center; justify-content: center; height: 100%; padding: 24px; box-sizing: border-box; }
-.controls { display: flex; flex-direction: column; gap: 14px; width: 280px; }
-.controls h1 { margin: 0; font-size: 28px; }
-.controls p { margin: 0; color: #5c5866; }
-label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; }
-input[type=text] { font: inherit; padding: 8px; border: 1px solid #c9c4d1; border-radius: 6px; }
-button { font: inherit; font-weight: 700; padding: 10px; border: 0; border-radius: 6px; background: #1d1b22; color: #fff; cursor: pointer; }
-canvas { width: min(70vh, 60vw); height: min(70vh, 60vw); box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); }
-body.shot-cover .controls { display: none; }
+:root {
+  --bg: #0d0b16;
+  --panel: #171226;
+  --line: #2c2340;
+  --text: #f2eefc;
+  --muted: #a99ec4;
+  --pink: #ff2d78;
+  --cyan: #2de2ff;
+  --gold: #ffb347;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; min-height: 100%; background: var(--bg); color: var(--text); font: 15px/1.45 system-ui, sans-serif; }
+.topbar { display: flex; align-items: baseline; gap: 16px; padding: 14px 22px; border-bottom: 1px solid var(--line); }
+.brand { font-size: 26px; font-weight: 900; letter-spacing: 2px; }
+.brand span { color: var(--pink); }
+.tagline { margin: 0; color: var(--muted); font-size: 13px; }
+.app { display: flex; gap: 24px; align-items: flex-start; padding: 22px; }
+.stage { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 10px; position: sticky; top: 12px; }
+#preview { width: min(62vh, 100%); height: auto; aspect-ratio: auto; box-shadow: 0 12px 44px rgba(0, 0, 0, 0.55); border: 1px solid var(--line); cursor: crosshair; background: #fff; }
+.hint { margin: 0; color: var(--muted); font-size: 13px; }
+.controls { width: 340px; display: flex; flex-direction: column; gap: 14px; }
+.group { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+.group h2 { margin: 0; font-size: 13px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--cyan); }
+.note { margin: 0; color: var(--muted); font-size: 12px; }
+.slots { display: flex; flex-direction: column; gap: 8px; }
+.slot { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-weight: 600; font-size: 13px; }
+.slot input[type=file] { max-width: 200px; color: var(--muted); font-size: 12px; }
+.picks { display: flex; flex-wrap: wrap; gap: 8px; }
+.pick { font: inherit; font-size: 13px; font-weight: 700; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: #221a38; color: var(--text); cursor: pointer; }
+.pick:hover { border-color: var(--cyan); }
+.pick.active { background: var(--pink); border-color: var(--pink); color: #fff; }
+.pick.grade::before { content: "● "; color: var(--swatch, #fff); }
+label { display: flex; flex-direction: column; gap: 6px; font-weight: 600; font-size: 13px; }
+label.check { flex-direction: row; align-items: center; gap: 8px; font-weight: 600; }
+input[type=text] { font: inherit; padding: 9px 10px; border: 1px solid var(--line); border-radius: 8px; background: #0d0b16; color: var(--text); }
+input[type=range] { accent-color: var(--pink); }
+.row { display: flex; gap: 8px; }
+.row button { flex: 1; }
+button { font: inherit; font-weight: 700; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: #221a38; color: var(--text); cursor: pointer; }
+button:hover { border-color: var(--cyan); }
+button:disabled { opacity: 0.4; cursor: default; }
+button.primary { background: var(--pink); border-color: var(--pink); color: #fff; font-size: 15px; }
+button.primary:hover { filter: brightness(1.15); }
+.panel-title { margin: 0; font-weight: 800; color: var(--gold); }
+#status { margin: 0; color: var(--muted); font-size: 13px; min-height: 18px; }
+
+/* Screenshot scenes: cover alone fills the window, editor keeps the UI. */
+body.shot-cover { overflow: hidden; }
+body.shot-cover .topbar, body.shot-cover .controls, body.shot-cover .hint { display: none; }
 body.shot-cover .app { padding: 0; }
-body.shot-cover canvas { width: 100vw; height: 100vh; box-shadow: none; }
+body.shot-cover .stage { position: static; }
+body.shot-cover #preview { width: 100vw; height: 100vh; object-fit: contain; box-shadow: none; border: 0; }
